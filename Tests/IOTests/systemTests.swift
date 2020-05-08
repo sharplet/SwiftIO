@@ -1,4 +1,4 @@
-import IO
+import SwiftIO
 import SwiftIOFoundation
 import XCTest
 

@@ -1,4 +1,4 @@
-import IO
+import SwiftIO
 import XCTest
 
 final class ExitErrorTests: XCTestCase {

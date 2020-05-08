@@ -3,19 +3,19 @@
 import PackageDescription
 
 let package = Package(
-  name: "swift-io",
+  name: "SwiftIO",
   products: [
-    .library(name: "IO", targets: ["IO"]),
+    .library(name: "SwiftIO", targets: ["SwiftIO"]),
   ],
   targets: [
-    .target(name: "IO", dependencies: ["ExitError", "SwiftIOFoundation"]),
+    .target(name: "SwiftIO", dependencies: ["ExitError", "SwiftIOFoundation"]),
     .target(name: "SwiftIOFoundation", cSettings: [
       .headerSearchPath("include/SwiftIOFoundation"),
     ]),
     .target(name: "ExitError"),
 
     .testTarget(name: "IOTests", dependencies: ["Support", "exec-test"]),
-    .target(name: "exec-test", dependencies: ["IO"], path: "Tests/exec-test"),
+    .target(name: "exec-test", dependencies: ["SwiftIO"], path: "Tests/exec-test"),
     .target(name: "Support", path: "Tests/Support"),
   ]
 )

@@ -1,4 +1,4 @@
-import IO
+import SwiftIO
 
 var arguments = CommandLine.arguments.dropFirst().makeIterator()
 guard let command = arguments.next() else {

@@ -4,15 +4,14 @@ import PackageDescription
 
 let package = Package(
   name: "SwiftIO",
-  platforms: [
-    // FIXME: Remove this
-    .macOS(.v10_15),
-  ],
   products: [
     .library(name: "IO", targets: ["IO"]),
   ],
   targets: [
-    .target(name: "IO", dependencies: ["ExitError"]),
+    .target(name: "IO", dependencies: ["ExitError", "SwiftIOFoundation"]),
+    .target(name: "SwiftIOFoundation", cSettings: [
+      .headerSearchPath("include/SwiftIOFoundation"),
+    ]),
     .target(name: "ExitError"),
 
     .testTarget(name: "IOTests", dependencies: ["Support", "exec-test"]),

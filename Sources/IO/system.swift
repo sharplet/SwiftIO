@@ -1,5 +1,5 @@
 import ExitError
-import Foundation
+import SwiftIOFoundation
 
 public func system(
   _ command: String,
@@ -18,12 +18,12 @@ public func system<Arguments: Sequence>(
 
   if options.contains(.requireAbsolutePath) {
     let command = URL(fileURLWithPath: command)
-    process = try Process.run(command, arguments: Array(arguments))
+    process = try Process._run(command, arguments: arguments)
   } else {
     let shell = URL(fileURLWithPath: "/bin/sh")
     let argv = [command] + arguments
     let shellArguments = ["-c", "\(command) \"$@\""] + argv
-    process = try Process.run(shell, arguments: shellArguments)
+    process = try Process._run(shell, arguments: shellArguments)
   }
 
   process.waitUntilExit()

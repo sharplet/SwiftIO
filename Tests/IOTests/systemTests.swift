@@ -1,4 +1,5 @@
 import IO
+import SwiftIOFoundation
 import XCTest
 
 final class SystemTests: XCTestCase {

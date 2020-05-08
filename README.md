@@ -32,7 +32,7 @@ let package = Package(
 Add the following import statement to the top of your file to use SwiftIO:
 
 ```swift
-import IO
+import SwiftIO
 ```
 
 ### `FileOutputStream`

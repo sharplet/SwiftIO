@@ -1,0 +1,4 @@
+line_length:
+  ignores_comments: true
+trailing_comma:
+  mandatory_comma: true

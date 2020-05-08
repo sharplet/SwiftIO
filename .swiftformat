@@ -1,0 +1,5 @@
+--ifdef outdent
+--indent 2
+--self init-only
+--stripunusedargs closure-only
+--xcodeindentation enabled

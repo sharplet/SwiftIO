@@ -98,6 +98,27 @@ exit(.success)
 exit()
 ```
 
+### Working with file paths
+
+SwiftIO avoids depending on Foundation's `URL` type to represent file paths,
+instead providing a lightweight `Path` struct that wraps a raw `String`.
+
+```swift
+// String literal support
+var path: Path = "/tmp/foo.txt"
+
+path.basename // "foo.txt"
+path.dirname // "/tmp"
+
+path.extension // "txt"
+path.extension = "db" // "/tmp/foo.db"
+path.components // ["/", "tmp", "foo.db"]
+
+// Path concatenation
+path.deleteExtension()
+path += "bar" // "/tmp/foo/bar"
+```
+
 ## Prior Art
 
 SwiftIO is fairly similar in role to [swift-tools-support-core](https://github.com/apple/swift-tools-support-core).

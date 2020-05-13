@@ -14,7 +14,7 @@ let package = Package(
     ]),
     .target(name: "ExitError"),
 
-    .testTarget(name: "IOTests", dependencies: ["Support", "exec-test"]),
+    .testTarget(name: "SwiftIOTests", dependencies: ["Support", "SwiftIO", "exec-test"]),
     .target(name: "exec-test", dependencies: ["SwiftIO"], path: "Tests/exec-test"),
     .target(name: "Support", path: "Tests/Support"),
   ]

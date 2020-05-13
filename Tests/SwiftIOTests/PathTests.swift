@@ -38,4 +38,39 @@ final class PathTests: XCTestCase {
     dir.deleteExtension()
     XCTAssertEqual(dir, "foo/")
   }
+
+  func testDirectory() {
+    var file: Path = "/tmp/foo/bar/baz.db"
+    file = file.directory
+    XCTAssertEqual(file, "/tmp/foo/bar")
+    file = file.directory
+    XCTAssertEqual(file, "/tmp/foo")
+    file = file.directory
+    XCTAssertEqual(file, "/tmp")
+    file = file.directory
+    XCTAssertEqual(file, "/")
+    file = file.directory
+    XCTAssertEqual(file, "/")
+
+    var relative: Path = "foo/bar"
+    relative = relative.directory
+    XCTAssertEqual(relative, "foo")
+    relative = relative.directory
+    XCTAssertEqual(relative, ".")
+  }
+
+  func testBasename() {
+    XCTAssertEqual(Path("foo/bar.txt").basename, "bar.txt")
+    XCTAssertEqual(Path("/").basename, "/")
+    XCTAssertEqual(Path("").basename, ".")
+  }
+
+  func testConcatenation() {
+    XCTAssertEqual(Path("a") + "b", "a/b")
+    XCTAssertEqual(Path("/a") + "b", "/a/b")
+    XCTAssertEqual(Path("a") + "b/", "a/b/")
+    XCTAssertEqual(Path("/a") + "b/", "/a/b/")
+    XCTAssertEqual(Path("/a/") + "b", "/a/b")
+    XCTAssertEqual(Path("/a/") + "/b", "/a/b")
+  }
 }

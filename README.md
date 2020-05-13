@@ -19,7 +19,7 @@ Drop this package declaration into your Package.swift file:
 let package = Package(
   name: "MyPackage",
   dependencies: [
-    .package(url: "https://github.com/sharplet/SwiftIO.git", from: "0.1.0"),
+    .package(url: "https://github.com/sharplet/SwiftIO.git", from: "0.1.1"),
   ],
   targets: [
     .target(name: "MyTarget", dependencies: ["SwiftIO"]),

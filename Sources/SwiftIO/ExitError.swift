@@ -24,6 +24,12 @@ extension ExitErrorCode {
   }
 }
 
+extension ExitError: CustomStringConvertible {
+  public var description: String {
+    String(describing: self as NSError)
+  }
+}
+
 extension ExitErrorCode {
   public static var success: ExitErrorCode { .EXIT_SUCCESS }
   public static var failure: ExitErrorCode { .EXIT_FAILURE }

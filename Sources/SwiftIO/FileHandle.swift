@@ -136,11 +136,12 @@ extension FileHandle {
   public mutating func read<I: BinaryInteger>(_: I.Type) throws -> I? {
     var i = I.zero
     let size = MemoryLayout.size(ofValue: i)
+    precondition(size != 0, "fread(3): cannot read value of size 0")
     if fread(&i, size, 1, handle) < 1 {
       if ferror(handle) > 0 {
         throw POSIXError.errno
       } else {
-        precondition(feof(handle) > 0, "fread(3) read fewer than expected items before EOF")
+        precondition(feof(handle) > 0, "fread(3): read fewer than expected items before EOF")
         return nil
       }
     } else {

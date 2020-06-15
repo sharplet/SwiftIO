@@ -1,8 +1,8 @@
-#import "ExitError.h"
 #import <Foundation/NSError.h>
 #import <Foundation/NSString.h>
+#import <sysexits.h>
 
-NSString *const ExitErrorDomain = @"sysexits";
+static NSString *const ExitErrorDomain = @"sysexits";
 
 static
 NSString * _Nullable

@@ -130,9 +130,9 @@ extension ExitError: CustomStringConvertible {
 }
 
 #if swift(>=4)
-private typealias UserInfoProvider = @convention(c) (Error, String) -> Any?
+private typealias UserInfoProvider = (Error, String) -> Any?
 #else
-private typealias UserInfoProvider = @convention(c) (NSError, String) -> NSString?
+private typealias UserInfoProvider = (NSError, String) -> NSString?
 #endif
 
 @_cdecl("swiftio_init_userInfoProvider")

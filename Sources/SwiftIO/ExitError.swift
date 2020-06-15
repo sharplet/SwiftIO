@@ -128,3 +128,53 @@ extension ExitError: CustomStringConvertible {
     return String(describing: _nsError)
   }
 }
+
+#if swift(>=4)
+private typealias UserInfoProvider = @convention(c) (Error, String) -> Any?
+#else
+private typealias UserInfoProvider = @convention(c) (NSError, String) -> NSString?
+#endif
+
+@_cdecl("swiftio_init_userInfoProvider")
+internal func initializeUserInfoProvider() {
+  NSError.setUserInfoValueProvider(
+    forDomain: ExitError.errorDomain,
+    provider: { error, key in
+      guard key == NSLocalizedDescriptionKey else { return nil }
+      switch error {
+      case ExitError.EX_USAGE:
+        return "The command arguments were incorrect."
+      case ExitError.EX_DATAERR:
+        return "The input data was incorrect."
+      case ExitError.EX_NOINPUT:
+        return "No such file or directory."
+      case ExitError.EX_NOUSER:
+        return "No such user."
+      case ExitError.EX_NOHOST:
+        return "No such host."
+      case ExitError.EX_UNAVAILABLE:
+        return "The service was unavailable."
+      case ExitError.EX_SOFTWARE:
+        return "An internal error occurred."
+      case ExitError.EX_OSERR:
+        return "An internal system error occurred."
+      case ExitError.EX_OSFILE:
+        return "An error occurred while accessing a system file."
+      case ExitError.EX_CANTCREAT:
+        return "The output file could not be created."
+      case ExitError.EX_IOERR:
+        return "An unexpected I/O error occurred."
+      case ExitError.EX_TEMPFAIL:
+        return "A temporary failure occurred; try again later."
+      case ExitError.EX_PROTOCOL:
+        return "The remote system returned an incorrect result."
+      case ExitError.EX_NOPERM:
+        return "Permission denied."
+      case ExitError.EX_CONFIG:
+        return "A configuration error occurred."
+      default:
+        return nil
+      }
+    } as UserInfoProvider
+  )
+}

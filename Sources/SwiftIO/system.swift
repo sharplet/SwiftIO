@@ -1,4 +1,3 @@
-import ExitError
 import SwiftIOFoundation
 
 public func system(

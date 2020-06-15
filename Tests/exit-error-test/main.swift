@@ -12,14 +12,14 @@ func main() throws {
   }
 
   for argument in arguments {
-    guard let code = Int32(argument).map(ExitErrorCode.init(status:)) else {
+    guard let code = Int32(argument) else {
       throw ExitError(.EX_USAGE, userInfo: [
         NSLocalizedFailureReasonErrorKey:
           "'\(argument)' is not a valid exit code.",
       ])
     }
 
-    let error = ExitError(code)
+    let error = NSError(domain: "sysexits", code: Int(code))
 
     if showDebugMessages {
       print(error)

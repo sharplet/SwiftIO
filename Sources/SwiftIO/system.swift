@@ -1,4 +1,4 @@
-import SwiftIOFoundation
+import Foundation
 
 public func system(
   _ command: String,
@@ -13,16 +13,17 @@ public func system<Arguments: Sequence>(
   arguments: Arguments,
   options: ProcessOptions = []
 ) throws where Arguments.Element == String {
+  let arguments = Array(arguments)
   let process: Process
 
   if options.contains(.requireAbsolutePath) {
     let command = URL(fileURLWithPath: command)
-    process = try Process._run(command, arguments: arguments)
+    process = try Process.run(command, arguments: arguments)
   } else {
     let shell = URL(fileURLWithPath: "/bin/sh")
     let argv = [command] + arguments
     let shellArguments = ["-c", "\(command) \"$@\""] + argv
-    process = try Process._run(shell, arguments: shellArguments)
+    process = try Process.run(shell, arguments: shellArguments)
   }
 
   process.waitUntilExit()

@@ -9,11 +9,11 @@ final class ExecTests: XCTestCase {
 
     let pipe = Pipe()
     let process = Process()
-    process.swiftio_executableURL = url
+    process.executableURL = url
     process.arguments = ["false"]
     process.standardError = pipe
     process.standardOutput = pipe
-    try process.swiftio_run()
+    try process.run()
     process.waitUntilExit()
     let data = pipe.fileHandleForReading.readToEndOfFile()
     let output = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)

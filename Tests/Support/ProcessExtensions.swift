@@ -5,11 +5,11 @@ extension Process {
   public static func output(fromRunning command: URL, arguments: [String] = []) throws -> String? {
     let pipe = Pipe()
     let process = Process()
-    process.swiftio_executableURL = command
+    process.executableURL = command
     process.arguments = arguments
     process.standardError = pipe
     process.standardOutput = pipe
-    try process.swiftio_run()
+    try process.run()
     process.waitUntilExit()
 
     guard process.terminationStatus == EX_OK else {

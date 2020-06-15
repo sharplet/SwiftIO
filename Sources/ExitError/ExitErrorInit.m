@@ -1,8 +1,8 @@
 extern void swiftio_init_userInfoProvider(void);
 
-static __attribute__((constructor))
+__attribute__((constructor))
 void
-SwiftIOInitializeExitErrorUserInfoProvider(void)
+_swiftio_exit_error_init_userInfoProvider(void)
 {
   swiftio_init_userInfoProvider();
 }

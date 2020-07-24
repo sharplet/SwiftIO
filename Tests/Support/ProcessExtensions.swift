@@ -2,14 +2,32 @@ import Foundation
 import SwiftIO
 
 extension Process {
-  public static func output(fromRunning command: URL, arguments: [String] = []) throws -> String? {
+  public static func output(fromRunning command: URL) throws -> String? {
+    try output(fromRunning: command, arguments: [])
+  }
+
+  public static func output<Arguments: Sequence>(
+    fromRunning command: URL,
+    arguments: Arguments
+  ) throws -> String?
+    where Arguments.Iterator.Element == String
+  {
     let pipe = Pipe()
     let process = Process()
-    process.executableURL = command
-    process.arguments = arguments
+    if #available(OSX 10.13, *) {
+      process.executableURL = command
+    } else {
+      process.launchPath = command.path
+    }
+    process.arguments = arguments.map(String.init(_:))
     process.standardError = pipe
     process.standardOutput = pipe
-    try process.run()
+
+    if #available(OSX 10.13, *) {
+      try process.run()
+    } else {
+      process.launch()
+    }
     process.waitUntilExit()
 
     guard process.terminationStatus == EX_OK else {

@@ -137,6 +137,7 @@ private typealias UserInfoProvider = (NSError, String) -> NSString?
 
 @_cdecl("swiftio_init_userInfoProvider")
 internal func initializeUserInfoProvider() {
+  guard #available(macOS 11.0, *) else { return }
   NSError.setUserInfoValueProvider(
     forDomain: ExitError.errorDomain,
     provider: { error, key in

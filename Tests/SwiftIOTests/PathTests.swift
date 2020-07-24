@@ -1,3 +1,4 @@
+import Support
 import SwiftIO
 import XCTest
 
@@ -72,5 +73,22 @@ final class PathTests: XCTestCase {
     XCTAssertEqual(Path("/a") + "b/", "/a/b/")
     XCTAssertEqual(Path("/a/") + "b", "/a/b")
     XCTAssertEqual(Path("/a/") + "/b", "/a/b")
+  }
+
+  func testCurrentDirectory() throws {
+    let cwd1 = try XCTUnwrap(Directory.current, orThrow: POSIXError.errno)
+
+    try Directory.make(at: "test")
+    addTeardownBlock {
+      try! Directory.remove("test")
+    }
+
+    try Directory.change(to: "test") {
+      let cwd2 = try XCTUnwrap(Directory.current, orThrow: POSIXError.errno)
+      XCTAssertEqual(cwd2, cwd1 + "test")
+    }
+
+    let cwd3 = try XCTUnwrap(Directory.current, orThrow: POSIXError.errno)
+    XCTAssertEqual(cwd3, cwd1)
   }
 }

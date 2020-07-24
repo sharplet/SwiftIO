@@ -47,6 +47,13 @@ public struct FileHandle {
   private var isKnownClosed = false
   private var isKnownInvalid = false
 
+  /// The file descripter owned by this file handle object.
+  ///
+  /// - SeeAlso: `fileno(3)`
+  public var fileDescriptor: Int32 {
+    fileno(handle)
+  }
+
   public var writeErrorHandler: ((POSIXError) -> Void)?
 
   public mutating func close() throws {

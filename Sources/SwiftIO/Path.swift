@@ -156,15 +156,3 @@ extension Path: ExpressibleByStringLiteral {
     self.init(rawValue: value)
   }
 }
-
-extension Path {
-  /// Returns the path of the this process's current working directory.
-  ///
-  /// - Returns: A `Path` holding the current directory, or `nil` for any of
-  ///   of the errors listed in `getcwd(3)`. Callers may choose to immediately
-  ///   throw `POSIXError.errno` in this case.
-  public static var currentDirectory: Path? {
-    guard let path = getcwd(nil, 0) else { return nil }
-    return Path(String(cString: path))
-  }
-}

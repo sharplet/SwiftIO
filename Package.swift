@@ -4,9 +4,6 @@ import PackageDescription
 
 let package = Package(
   name: "SwiftIO",
-  platforms: [
-    .macOS(.v10_13),
-  ],
   products: [
     .library(name: "SwiftIO", targets: ["SwiftIO"]),
   ],
